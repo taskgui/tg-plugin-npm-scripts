@@ -8,7 +8,7 @@ module.exports = function (opts) {
     return
   }
   
-  console.log('available script:')
+  console.log('available npm scripts:')
 
   for (var _name in conf.scripts) {
     console.log('\t' + _name)
