@@ -17,7 +17,7 @@ module.exports = function (opts) {
   
   var all = require(opts.root + '/static/task.json')
   
-  all.npm_scripts = {
+  all.tasks.npm_scripts = {
     prefix: 'npm run',
     tasks: conf.scripts
   }
