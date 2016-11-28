@@ -1,8 +1,13 @@
 var fs = require('fs')
 
-
 module.exports = function (opts) {
   var conf = require(opts.cwd + '/package.json')
+
+  if (!fs.existsSync(conf)) {
+    console.log('not exist package.json')
+    return
+  }
+  
   var lines = []
   console.log('available script:')
 
