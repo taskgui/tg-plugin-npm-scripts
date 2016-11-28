@@ -1,26 +1,33 @@
 var fs = require('fs')
 
 module.exports = function (opts) {
-  var conf = require(opts.cwd + '/package.json')
+  try {
+    var conf = require(opts.cwd + '/package.json')
 
-  if (!conf) {
-    console.log('not exist package.json')
-    return
-  }
+    if (!conf) {
+      console.log('not exist package.json')
+      return
+    }
   
-  console.log('available npm scripts:')
+    console.log('available npm scripts:')
 
-  for (var _name in conf.scripts) {
-    console.log('\t' + _name)
-    var cmd = 'alias ' + _name + '=\'npm run ' + _name + '\''
+    for (var _name in conf.scripts) {
+      console.log('\t' + _name)
+      var cmd = 'alias ' + _name + '=\'npm run ' + _name + '\''
+    }
+  
+    var all = require(opts.root + '/static/task.json')
+  
+    all.tasks.npm_scripts = {
+      prefix: 'npm run',
+      tasks: conf.scripts
+    }
+  
+    fs.writeFileSync(opts.root + '/static/task.json',  JSON.stringify(all, null, 4))
   }
-  
-  var all = require(opts.root + '/static/task.json')
-  
-  all.tasks.npm_scripts = {
-    prefix: 'npm run',
-    tasks: conf.scripts
+  catch(err)
+  {
+    //在此处理错误
+    console.log(err)
   }
-  
-  fs.writeFileSync(opts.root + '/static/task.json',  JSON.stringify(all, null, 4))
 }
