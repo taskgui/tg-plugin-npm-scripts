@@ -3,7 +3,7 @@ var fs = require('fs')
 module.exports = function (opts) {
   var conf = require(opts.cwd + '/package.json')
 
-  if (!fs.existsSync(conf)) {
+  if (!conf) {
     console.log('not exist package.json')
     return
   }
