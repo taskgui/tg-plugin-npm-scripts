@@ -16,7 +16,5 @@ module.exports = function (opts) {
   
   all.scripts = conf.scripts
   
-  
-  
   fs.writeFileSync(opts.root + '/static/task.json',  JSON.stringify(all, null, 4))
 }
