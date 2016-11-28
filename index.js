@@ -1,7 +1,9 @@
 var fs = require('fs')
 
 module.exports = function (opts) {
-  try {
+  var all = require(opts.root + '/static/task.json')
+  
+  if (fs.existsSync(opts.cwd + '/package.json')) {
     var conf = require(opts.cwd + '/package.json')
 
     if (!conf) {
@@ -16,18 +18,16 @@ module.exports = function (opts) {
       var cmd = 'alias ' + _name + '=\'npm run ' + _name + '\''
     }
   
-    var all = require(opts.root + '/static/task.json')
-  
     all.tasks.npm_scripts = {
       prefix: 'npm run',
       tasks: conf.scripts
     }
   
     fs.writeFileSync(opts.root + '/static/task.json',  JSON.stringify(all, null, 4))
-  }
-  catch(err)
-  {
-    //在此处理错误
-    console.log(err)
+  } else {
+    all.tasks.npm_scripts = {
+    }
+  
+    fs.writeFileSync(opts.root + '/static/task.json',  JSON.stringify(all, null, 4))
   }
 }
