@@ -25,9 +25,8 @@ module.exports = function (opts) {
   
     fs.writeFileSync(opts.root + '/static/task.json',  JSON.stringify(all, null, 4))
   } else {
-    all.tasks.npm_scripts = {
-    }
-  
+    delete all.tasks.npm_scripts
+    
     fs.writeFileSync(opts.root + '/static/task.json',  JSON.stringify(all, null, 4))
   }
 }
